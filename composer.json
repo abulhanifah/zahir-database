@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jacquestvanzuydam/laravel-firebird": "dev-5.3-support"
+    }
+}

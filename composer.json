@@ -3,6 +3,8 @@
     "description": "A hacking database service provider for laravel",
     "license": "MIT",
     "require": {
-        "jacquestvanzuydam/laravel-firebird": "dev-5.3-support"
+        "jacquestvanzuydam/laravel-firebird": "dev-5.4-support",
+        "kafoso/doctrine-firebird-driver": "^1.1.2",
+        "doctrine/dbal": "^2.5"
     }
 }

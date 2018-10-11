@@ -126,7 +126,7 @@ class Mapper
      * @param  array $data
      * @param  array $map
      */
-    public static function mapTable($data=[], $map=[])
+    public static function mapTable($table=[], $map=[])
     {
         $res = [];
         foreach ($map as $key => $value) {
@@ -136,8 +136,8 @@ class Mapper
                 foreach (array_slice($k,1) as $dk => $dv) {
                     $detailKey .= '.'.$dv;
                 }
-                $res[$k[0]]['primary_key'] = $data['main']['primary_key'];
-                $res[$k[0]]['key'] = $data['main']['key'];
+                $res[$k[0]]['primary_key'] = $table['primary_key'];
+                $res[$k[0]]['key'] = $table['key'];
                 
                 if(isset($value['parent'])) {
                     $res[$k[0]]['map'] = self::multiArray($res[$k[0]]['map'],$k[0],substr($detailKey, 1),$map);

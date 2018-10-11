@@ -4,6 +4,7 @@ namespace ZahirDB\ORM;
 
 use Illuminate\Database\Eloquent\Builder as BaseBuilder;
 use ZahirDB\Exceptions\NotFoundException;
+use ZahirDB\ORM\Mapper;
 
 class Builder extends BaseBuilder {
     public static $pagination = [
@@ -109,8 +110,18 @@ class Builder extends BaseBuilder {
     public function multiMap($request=[]) {
         $this->setParams($request);
         $query = $this->query;
-        $query = $this->getSubQuery($query);
+        $subquery = $this->getSubQuery($query);
+        
+        $query = $query->table($this->model->table)
+            ->fromSub($subquery." as ".$this->model->table_alias);
 
+        if(isset($this->model->relations)) {
+            foreach ($this->model->relations as $rel) {
+                $query = $this->getSimpleJoin($query,$rel);
+            }
+        }       
+
+        return Mapper::getMapResult($query, $this->model->getMapTable(), $this->model->getMapFields()); 
     }
 
     public function countMap($request=[]) {
@@ -126,10 +137,11 @@ class Builder extends BaseBuilder {
         if(isset($this->model->relations)) {
             foreach ($this->model->relations as $rel) {
                 if($rel['type'] == 'inner'){
-                    $this->getJoin($query,$rel);
+                    $query = $this->getJoin($query,$rel);
                 }
             }
         }
+        return $query;
     }
 
     protected function getCountQuery($query) {

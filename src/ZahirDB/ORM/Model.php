@@ -97,6 +97,10 @@ abstract class Model extends BaseModel {
     	$this->maps = $maps;
     }
 
+    public function getMapTable() {
+        return $this->maps['table'];
+    }
+
     public function setMapRelations($maps=[]) {
     	if(!isset($maps['relations'])) {
     		$maps['relations'] = $this->relations;
@@ -140,6 +144,10 @@ abstract class Model extends BaseModel {
 
         $this->fields = $maps['fields'] ?: [];
         $this->maps = $maps;
+    }
+
+    public function getMapFields() {
+        return $this->maps['fields'];
     }
 
     public function setMaps($maps=[]) {

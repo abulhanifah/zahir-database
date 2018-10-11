@@ -2,6 +2,7 @@
 namespace ZahirDB\Firebird;
 
 use Firebird\Connection as BaseConnection;
+use Kafoso\DoctrineFirebirdDriver\Driver\FirebirdInterbase\Driver as DoctrineDriver;
 use ZahirDB\Firebird\Schema\Builder as SchemaBuilder;
 use ZahirDB\Firebird\Schema\Grammars\FirebirdGrammar as SchemaGrammar;
 use ZahirDB\Firebird\Query\Grammars\FirebirdGrammar as QueryGrammar;
@@ -61,4 +62,14 @@ class FirebirdConnection extends BaseConnection {
 
 		return $query->from($table);
 	}
+
+	/**
+     * Get the Doctrine DBAL driver.
+     *
+     * @return Kafoso\DoctrineFirebirdDriver\Driver\FirebirdInterbase\Driver
+     */
+    protected function getDoctrineDriver()
+    {
+        return new DoctrineDriver;
+    }
 }

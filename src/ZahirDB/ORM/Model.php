@@ -129,12 +129,6 @@ abstract class Model extends BaseModel {
 			$maps['relations'][$krel] = $rel;
 		}
 
-        foreach ($maps['fields'] as $kf => $field) {
-            if(!isset($field['name'])) {
-                $field['name'] = $this->getAlias().".".$kf;
-            }
-        }
-
         $this->relations = $maps['relations'] ?: [];
     	$this->maps = $maps;
     }
@@ -152,8 +146,8 @@ abstract class Model extends BaseModel {
     	$this->setMapTable($maps);
         $this->setMapRelations($maps);
     	$this->setMapFields($maps);
-    	return $this->$maps;
-   	}
+    	$this->maps = $maps;
+    }
 
    	public function getMaps() {
    		return $this->setMaps($this->maps);
